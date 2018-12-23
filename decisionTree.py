@@ -1,4 +1,4 @@
-from svm import StockPrediction
+from svm import StockPrediction, StockPredNoClassification
 from sklearn import tree
 
 class DecisionTreeStockPrediction(StockPrediction):
@@ -15,6 +15,17 @@ class DecisionTreeStockPrediction(StockPrediction):
 
 
 
+class DecisionTreeStockPredictionNoClustering(StockPredNoClassification):
+    def __init__(self, microDataLoc):
+        StockPredNoClassification.__init__(self, microDataLoc)
+
+    def train(self):
+        train, test, trainLabel, testLabel = self.trainTestSplit()
+        clf = [tree.DecisionTreeClassifier() for i in range(self.clusterNum)]
+        for i in range(self.clusterNum):
+            clf[i].fit(train[i], trainLabel[i])
+        return (clf, test, testLabel) # return test and testLabel to self.test() so no need to
+                                      # recompute the testing data again
 
 if __name__ == "__main__":
 
@@ -36,5 +47,13 @@ if __name__ == "__main__":
 
     # Case when 1 cluster
     apple = DecisionTreeStockPrediction("data/appleTrainData.txt", clusterNum=1)
+    apple.reportResult()
+
+
+
+
+
+    # without clustering
+    apple = DecisionTreeStockPredictionNoClustering("data/appleTrainData.txt")
     apple.reportResult()
 
