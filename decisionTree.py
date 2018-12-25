@@ -1,9 +1,9 @@
-from svm import StockPrediction, StockPredNoClassification
+from classifier import classifier
 from sklearn import tree
 
-class DecisionTreeStockPrediction(StockPrediction):
+class DecisionTreeStockPrediction(classifier):
     def __init__(self, microDataLoc, clusterNum=1, macroDataLoc="data/clusterData.txt"):
-        StockPrediction.__init__(self, microDataLoc, clusterNum, macroDataLoc)
+        classifier.__init__(self, microDataLoc, clusterNum, macroDataLoc)
 
     def train(self):
         train, test, trainLabel, testLabel = self.trainTestSplit()
@@ -15,9 +15,9 @@ class DecisionTreeStockPrediction(StockPrediction):
 
 
 
-class DecisionTreeStockPredictionNoClustering(StockPredNoClassification):
+class DecisionTreeStockPredictionNoClustering(DecisionTreeStockPrediction):
     def __init__(self, microDataLoc):
-        StockPredNoClassification.__init__(self, microDataLoc)
+        DecisionTreeStockPrediction.__init__(self, microDataLoc)
 
     def train(self):
         train, test, trainLabel, testLabel = self.trainTestSplit()
