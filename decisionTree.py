@@ -1,9 +1,9 @@
-from classifier import classifier
+from classifier import Classifier
 from sklearn import tree
 
-class DecisionTreeStockPrediction(classifier):
+class DecisionTreeStockPrediction(Classifier):
     def __init__(self, microDataLoc, clusterNum=1, macroDataLoc="data/clusterData.txt"):
-        classifier.__init__(self, microDataLoc, clusterNum, macroDataLoc)
+        Classifier.__init__(self, microDataLoc, clusterNum, macroDataLoc)
 
     def train(self):
         train, test, trainLabel, testLabel = self.trainTestSplit()
